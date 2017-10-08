@@ -233,6 +233,8 @@
             return cpuDataSet;
         }
 
+        var _pointer_color =["#5783A6", "#6EB6E9", "#6A67DA", "#A2FCFF", "#3B6F5"];
+
         chart_builder[chart_builder.length] = builder("#traffic_chart", {
             padding: {left: 60, right: 80, top: 50, bottom: 30},
             axis: {
@@ -243,18 +245,23 @@
                     realtime: "minutes",		// 단위 시간 설정
                     format: "HH:mm:ss",           //yyyy-mm-dd HH:mm:ss.SSS
                     key: "time",
-                    line: 'solid'
+                    line : 'solid'
+                   // line: 'solid'
                 },
                 y: {
                     type: "range",
                     step: 4,
+                    line : true,
                     domain: [0, 180]
                 }
             },
             brush: {
                 type: "scatter",
+                symbol : "cross",
                 target: ["elapseTime"],
                 useEvent: true,
+                clip : true,
+                size : 3,
                 colors: function (target) {
                     if (target.status >= 400 && target.status < 500) {
                         //400번대 오류는 오랜지색
@@ -263,16 +270,21 @@
                         //500번대 오류는 오랜지색
                         return "red";
                     }
+                    //console.log("Target : "+target.time);
+                   // console.log("Target : "+(target.time*1%10000/1000%_pointer_color.length));
 
-                    return 1;
+                    return _pointer_color[target.time*1%10000/1000%_pointer_color.length];
                 }
 
 
             },
-            widget: {
-                type: "dragselect",
-                dataType: "list"
-            },
+            widget : [{
+                type : "title",
+                text : "Heat-Map Transaction View (0)"
+            }, {
+                type : "dragselect",
+                dataType : "list"
+            }],
             event: {
                 "dragselect.end": function (data) {
                     //alert(data.length);
@@ -482,6 +494,7 @@
             }
 
 
+
             data1.push({
                 elapseTime: elapseTime,
                 status: status,
@@ -491,14 +504,20 @@
 
             result = null;
             elapseTime = null;
+
             chart_builder[0].axis(0).updateGrid("x", {domain: domain});
             chart_builder[0].axis(0).update(data1);
-            chart_builder[0].render();
+            chart_builder[0].updateWidget(0, { text: "Point - View (" + (data1.length-1) + ")" });
+            //chart_builder[0].render();
+            chart_builder[0].render(true);
 
             data2.shift();
             data2.push({
                 cpu: cpuShare
             });
+
+            console.log("data1.length:"+data1.length)
+
 
             chart_builder[1].axis(0).updateGrid("x", {domain: domain});
             chart_builder[1].axis(0).update(data2);
