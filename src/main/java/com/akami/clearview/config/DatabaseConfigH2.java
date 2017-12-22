@@ -20,13 +20,6 @@ import javax.inject.Inject;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
-/**
- * <p><b></b></p>
- * <p>Copyright (c) 2016 kt corp. all rights reserved</p>
- *
- * @author Sang-hyun Lee (zanylove@gmail.com)
- * @since 16/1/29 18:38
- */
 @Slf4j
 @Configuration
 @MapperScan(

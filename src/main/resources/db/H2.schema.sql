@@ -2,11 +2,11 @@ drop table if exists cv_request_row;
 
 
 CREATE TABLE `request_set` (
-  `cv_req_id` varchar(100) NOT NULL,
+  `cv_req_id` varchar(255) NOT NULL,
+  `clien_ip` varchar(255) DEFAULT NULL,
   `cv_cookie_id` varchar(100) DEFAULT NULL,
-  `cv_agent_id` varchar(50) DEFAULT NULL,
+  `cv_agent_id` varchar(20) DEFAULT NULL,
   `session_id` varchar(50) DEFAULT NULL,
-  `clien_ip` varchar(50) DEFAULT NULL,
   `uri` varchar(1000) DEFAULT NULL,
   `method` varchar(20) DEFAULT NULL,
   `cv_req_start_time` timestamp NULL DEFAULT NULL,
