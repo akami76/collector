@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,7 +15,8 @@ public class Producer {
 	
 	 @Autowired
 	 private SimpMessagingTemplate template;
-	
+
+	 @Async
 	 public void sendMessageTo(String topic, String message) {
 		 	StringBuilder builder = new StringBuilder();
 		 	/*builder.append("[");

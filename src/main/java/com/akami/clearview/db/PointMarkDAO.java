@@ -1,6 +1,6 @@
 package com.akami.clearview.db;
 
-import com.akami.DeE;
+//import com.akami.DeE;
 import com.akami.clearview.domain.PointMark;
 
 import javax.inject.Named;
@@ -14,5 +14,5 @@ public interface PointMarkDAO {
 
     List<PointMark> getPointMarkList(String[] cv_req_id_list);
 
-    DeE d = new DeE();
+   // DeE d = new DeE();
 }
